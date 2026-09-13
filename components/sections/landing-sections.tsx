@@ -8,7 +8,17 @@ import { AnimatedContent } from '@/components/ui/animated-content'
 import { DriftWall, type DriftWallItem } from '@/components/ui/drift-wall'
 import { SplitText } from '@/components/ui/split-text'
 import { PreConsultation } from '@/components/sections/pre-consultation'
-import { foodImage, instagramUrl, portraitImage, profileImage, siteConfig } from '@/lib/site-config'
+import {
+  authorityPortraitImage,
+  clinicalPortraitImage,
+  consultationPortraitImage,
+  editorialPortraitImage,
+  foodImage,
+  instagramUrl,
+  portraitImage,
+  profileImage,
+  siteConfig,
+} from '@/lib/site-config'
 
 const Label = ({ children, light = false }: { children: string; light?: boolean }) => (
   <span className={`font-mono text-[10px] font-semibold uppercase tracking-[0.22em] ${light ? 'text-secondary' : 'text-accent'}`}>{children}</span>
@@ -38,14 +48,18 @@ const faqs = [
   ['Como funciona para começar?', 'Você responde algumas perguntas rápidas e continua pelo WhatsApp com mais contexto para a Larissa entender seu caso.'],
 ] as const
 const lifeItems: DriftWallItem[] = [
-  { src: portraitImage, alt: 'Larissa Vital segurando uma fatia de kiwi', label: 'Larissa Vital' },
+  { src: consultationPortraitImage, alt: 'Larissa Vital em retrato profissional com jaleco', label: 'Autoridade' },
   { src: profileImage, alt: 'Larissa Vital em ambiente de atendimento nutricional', label: 'Atendimento' },
+  { src: portraitImage, alt: 'Larissa Vital segurando uma fatia de kiwi', label: 'Nutrição' },
   { src: foodImage, alt: 'Ingredientes coloridos organizados sobre uma mesa', label: 'Ingredientes' },
-  { src: '/nutri2.webp', alt: 'Refeição em tigela com ingredientes variados', label: 'Refeições' },
-  { label: 'Trabalho', alt: 'Bloco textual sobre trabalho', tone: 'bg-secondary/85' },
+  { src: clinicalPortraitImage, alt: 'Larissa Vital segurando adipômetro em retrato profissional', label: 'Avaliação' },
+  { label: 'Rotina', alt: 'Bloco textual sobre rotina', tone: 'bg-secondary/80' },
   { label: 'Fins de semana', alt: 'Bloco textual sobre fins de semana', tone: 'bg-card' },
+  { label: 'Vida real', alt: 'Bloco textual sobre vida real', tone: 'bg-background' },
+  { label: 'Trabalho', alt: 'Bloco textual sobre trabalho', tone: 'bg-secondary/70' },
+  { label: 'Horários', alt: 'Bloco textual sobre horários', tone: 'bg-card' },
   { label: 'Mercado', alt: 'Bloco textual sobre mercado', tone: 'bg-background' },
-  { label: 'Rotina', alt: 'Bloco textual sobre rotina', tone: 'bg-secondary/70' },
+  { label: 'Constância', alt: 'Bloco textual sobre constância', tone: 'bg-secondary/75' },
 ]
 
 function CtaButton({ children, content, variant = 'primary' }: { children: string; content: string; variant?: 'primary' | 'accent' }) {
@@ -84,13 +98,14 @@ export function Header() {
 export function Hero() {
   return (
     <section id="inicio" className="relative overflow-hidden bg-background pt-24 sm:pt-28">
-      <div className="mx-auto grid max-w-[1480px] gap-10 px-5 pb-14 sm:px-8 lg:grid-cols-12 lg:items-end lg:px-10 lg:pb-20">
-        <div className="relative z-10 lg:col-span-7">
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[58%] bg-[linear-gradient(135deg,color-mix(in_oklch,var(--secondary)_38%,transparent),transparent_55%)]" />
+      <div className="mx-auto grid max-w-[1480px] gap-10 px-5 pb-14 sm:px-8 lg:grid-cols-12 lg:items-center lg:px-10 lg:pb-20">
+        <div className="relative z-10 lg:col-span-7 xl:col-span-6">
           <Label>LARISSA VITAL · NUTRICIONISTA</Label>
-          <SplitText tag="h1" text="Uma alimentação que funciona quando a vida acontece." splitType="words" delay={60} duration={0.75} ease="power3.out" className="mt-6 max-w-[11ch] font-serif text-[clamp(3rem,15vw,5rem)] leading-[0.92] text-primary sm:max-w-[12ch] sm:text-[clamp(4.6rem,10vw,6.7rem)] lg:text-[clamp(5.2rem,7vw,7.2rem)]" />
+          <SplitText tag="h1" text="Uma alimentação que funciona quando a vida acontece." splitType="words" delay={60} duration={0.75} ease="power3.out" className="mt-6 max-w-[11ch] font-serif text-[clamp(3rem,15vw,5rem)] leading-[0.92] text-primary sm:max-w-[12ch] sm:text-[clamp(4.6rem,10vw,6.7rem)] lg:text-[clamp(4.9rem,6.2vw,7rem)]" />
           <div className="mt-7 max-w-2xl border-l border-accent/70 pl-5 sm:mt-9">
             <p className="text-lg leading-8 text-primary sm:text-xl">Você já pode saber muito sobre o que deveria comer.</p>
-            <p className="mt-4 text-base leading-7 text-muted-foreground sm:text-lg">O desafio aparece quando essa orientação precisa coexistir com trabalho, compromissos, finais de semana e imprevistos.</p>
+            <p className="mt-4 text-base leading-7 text-muted-foreground sm:text-lg">O desafio começa quando essa orientação precisa coexistir com trabalho, compromissos, finais de semana e imprevistos.</p>
             <p className="mt-4 font-serif text-2xl leading-tight text-primary">É nesse ponto que o acompanhamento começa.</p>
           </div>
           <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -99,9 +114,10 @@ export function Hero() {
           </div>
           <p className="mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-primary/58">Emagrecimento · Reeducação alimentar · Atendimento individualizado</p>
         </div>
-        <figure className="relative -mx-5 aspect-[4/5] overflow-hidden bg-secondary sm:mx-0 sm:aspect-[1.05] lg:col-span-5 lg:aspect-[0.78]">
-          <Image src={portraitImage} alt="Nutricionista Larissa Vital" fill priority sizes="(max-width: 1024px) 100vw, 38vw" quality={85} className="object-cover object-[center_16%]" />
-          <figcaption className="absolute bottom-5 left-5 max-w-[14rem] bg-background/88 px-4 py-3 text-sm leading-5 text-primary backdrop-blur">Nutrição para decisões possíveis fora da consulta.</figcaption>
+        <figure className="relative -mx-5 aspect-[4/5] overflow-hidden bg-secondary sm:mx-0 sm:aspect-[0.92] lg:col-span-5 lg:aspect-[0.76] xl:col-span-6 xl:ml-10">
+          <Image src={editorialPortraitImage} alt="Nutricionista Larissa Vital em retrato editorial" fill priority sizes="(max-width: 1024px) 100vw, 46vw" quality={86} className="object-cover object-[center_15%]" />
+          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_oklch,var(--primary)_18%,transparent),transparent_45%),linear-gradient(0deg,color-mix(in_oklch,var(--primary)_30%,transparent),transparent_38%)]" />
+          <figcaption className="absolute bottom-5 left-5 max-w-[15rem] border-l border-secondary/80 bg-background/88 px-4 py-3 text-sm leading-5 text-primary backdrop-blur">Nutrição para decisões possíveis fora da consulta.</figcaption>
         </figure>
       </div>
     </section>
@@ -136,12 +152,13 @@ export function RecognitionSection() {
 
 export function LarissaAuthority() {
   return (
-    <section id="sobre" className="overflow-hidden bg-background px-5 py-18 sm:px-8 lg:px-10 lg:py-28">
+    <section id="sobre" className="overflow-hidden bg-[linear-gradient(135deg,var(--background),color-mix(in_oklch,var(--secondary)_42%,var(--background)))] px-5 py-18 sm:px-8 lg:px-10 lg:py-28">
       <AnimatedContent className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-12 lg:items-center">
         <div className="relative lg:col-span-5">
-          <div className="absolute -left-5 top-10 hidden h-40 w-24 border-l border-t border-accent/45 lg:block" aria-hidden="true" />
+          <div className="absolute -left-5 top-10 hidden h-44 w-28 border-l border-t border-accent/45 lg:block" aria-hidden="true" />
+          <div aria-hidden="true" className="absolute -bottom-7 -right-6 hidden h-44 w-44 bg-accent/12 lg:block" />
           <figure className="relative aspect-[4/5] overflow-hidden rounded-lg bg-secondary shadow-[0_24px_80px_color-mix(in_oklch,var(--primary)_13%,transparent)]">
-            <Image src={profileImage} alt="Larissa Vital em seu ambiente de atendimento" fill loading="lazy" sizes="(max-width: 1024px) 92vw, 36vw" quality={85} className="object-cover object-[center_30%]" />
+            <Image src={authorityPortraitImage} alt="Larissa Vital em retrato profissional com jaleco" fill loading="lazy" sizes="(max-width: 1024px) 92vw, 36vw" quality={85} className="object-cover object-[center_16%]" />
           </figure>
           <p className="absolute -bottom-6 right-4 max-w-[13rem] bg-primary px-5 py-4 font-serif text-2xl leading-tight text-secondary shadow-xl">Nutrição para a vida real.</p>
         </div>
@@ -150,10 +167,10 @@ export function LarissaAuthority() {
           <h2 className="mt-5 font-serif text-5xl leading-tight text-primary sm:text-7xl">Oi, sou a Larissa.</h2>
           <div className="mt-8 grid gap-5 text-lg leading-8 text-muted-foreground">
             <p>Nutricionista com atuação em emagrecimento e reeducação alimentar.</p>
-            <p>O atendimento vai além de observar o que está no prato.</p>
-            <p>Rotina, horários, preferências, histórico de tentativas e dificuldades práticas ajudam a definir o que realmente pode funcionar.</p>
+            <p>O atendimento considera mais do que o prato.</p>
+            <p>Rotina, horários, preferências, histórico de tentativas e dificuldades práticas definem o que pode funcionar.</p>
             <p className="font-serif text-2xl leading-tight text-primary sm:text-3xl">Existe uma diferença entre saber o que fazer e conseguir sustentar esse comportamento.</p>
-            <p><strong className="font-semibold text-primary">É essa diferença que precisa ser compreendida antes de construir uma estratégia alimentar.</strong></p>
+            <p><strong className="font-semibold text-primary">Essa diferença precisa ser compreendida antes da estratégia alimentar.</strong></p>
             <p>Uma orientação só faz sentido quando consegue existir fora do consultório.</p>
           </div>
           <div className="mt-8 border-t border-primary/16 pt-6">
@@ -170,23 +187,29 @@ export function LarissaAuthority() {
 
 export function BeyondThePlate() {
   return (
-    <section className="bg-secondary px-5 py-18 sm:px-8 lg:px-10 lg:py-24">
-      <div className="mx-auto max-w-[1240px]">
-        <div className="max-w-3xl">
-          <Label>ALÉM DO PRATO</Label>
-          <h2 className="mt-5 font-serif text-4xl leading-tight text-primary sm:text-6xl">Nem sempre o maior problema está no prato.</h2>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">A alimentação não acontece isolada. Contexto, ambiente e expectativa mudam o que é possível sustentar.</p>
+    <section className="overflow-hidden bg-secondary px-5 py-18 sm:px-8 lg:px-10 lg:py-24">
+      <div className="mx-auto grid max-w-[1240px] gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-start">
+        <figure className="relative hidden aspect-[3/4] overflow-hidden rounded-lg bg-primary/10 lg:block">
+          <Image src={foodImage} alt="Ingredientes variados usados como referência visual de alimentação" fill loading="lazy" sizes="30vw" quality={78} className="object-cover object-center" />
+          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklch,var(--secondary)_18%,transparent),color-mix(in_oklch,var(--primary)_50%,transparent))]" />
+        </figure>
+        <div>
+          <div className="max-w-3xl">
+            <Label>ALÉM DO PRATO</Label>
+            <h2 className="mt-5 font-serif text-4xl leading-tight text-primary sm:text-6xl">Nem sempre o maior problema está no prato.</h2>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Alimentação envolve contexto, ambiente e expectativa. Esses fatores mudam o que é possível sustentar.</p>
+          </div>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2">
+            {beyond.map(([number, title, text], index) => (
+              <AnimatedContent key={title} delay={index * 0.04} className="border-t border-primary/25 bg-background/45 p-6 backdrop-blur">
+                <span className="font-mono text-xs text-accent">{number}</span>
+                <h3 className="mt-8 font-serif text-3xl text-primary">{title}</h3>
+                <p className="mt-4 text-base leading-7 text-muted-foreground">{text}</p>
+              </AnimatedContent>
+            ))}
+          </div>
+          <p className="mt-12 max-w-3xl border-l-2 border-accent pl-5 font-serif text-3xl leading-tight text-primary sm:text-4xl">Pessoas com o mesmo objetivo podem precisar de caminhos completamente diferentes.</p>
         </div>
-        <div className="mt-12 grid gap-5 lg:grid-cols-4">
-          {beyond.map(([number, title, text], index) => (
-            <AnimatedContent key={title} delay={index * 0.04} className="border-t border-primary/25 bg-background/45 p-6">
-              <span className="font-mono text-xs text-accent">{number}</span>
-              <h3 className="mt-8 font-serif text-3xl text-primary">{title}</h3>
-              <p className="mt-4 text-base leading-7 text-muted-foreground">{text}</p>
-            </AnimatedContent>
-          ))}
-        </div>
-        <p className="mt-12 max-w-3xl border-l-2 border-accent pl-5 font-serif text-3xl leading-tight text-primary sm:text-4xl">Pessoas com o mesmo objetivo podem precisar de caminhos completamente diferentes.</p>
       </div>
     </section>
   )
@@ -201,7 +224,7 @@ export function LifeWall() {
           <h2 className="mt-5 font-serif text-5xl leading-tight text-secondary sm:text-7xl">A alimentação precisa funcionar aqui.</h2>
           <p className="mt-7 max-w-md text-lg leading-8 text-primary-foreground/76">Trabalho, horários que mudam, refeições fora de casa, finais de semana e imprevistos fazem parte da estratégia.</p>
         </div>
-        <DriftWall items={lifeItems} speed={6} tilt={7} turn={-5} depth={40} dim={0.86} fade={0.82} className="-mx-5 sm:mx-0" />
+        <DriftWall items={lifeItems} speed={4.5} tilt={5} turn={-4} depth={32} dim={0.92} fade={0.78} radius={12} overlayColor="color-mix(in oklch, var(--primary) 16%, transparent)" className="-mx-5 sm:mx-0" />
       </div>
     </section>
   )
@@ -268,11 +291,13 @@ export function Footer() {
 
   return (
     <>
-      <section className="bg-primary px-5 py-20 text-primary-foreground sm:px-8 lg:px-10 lg:py-28">
-        <AnimatedContent className="mx-auto max-w-[1200px]">
+      <section className="relative overflow-hidden bg-primary px-5 py-20 text-primary-foreground sm:px-8 lg:px-10 lg:py-28">
+        <Image src={consultationPortraitImage} alt="" fill loading="lazy" sizes="100vw" quality={76} className="object-cover object-[center_18%] opacity-22" />
+        <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,var(--primary)_0%,color-mix(in_oklch,var(--primary)_92%,transparent)_46%,color-mix(in_oklch,var(--primary)_55%,transparent)_100%)]" />
+        <AnimatedContent className="relative mx-auto max-w-[1200px]">
           <Label light>PRÓXIMO PASSO</Label>
           <h2 className="mt-6 max-w-4xl font-serif text-5xl leading-tight text-secondary sm:text-7xl">O próximo passo não precisa ser outra dieta.</h2>
-          <p className="mt-7 max-w-xl text-lg leading-8 text-primary-foreground/75">Pode começar entendendo melhor sua rotina, suas dificuldades e o que realmente precisa mudar para que uma estratégia funcione.</p>
+          <p className="mt-7 max-w-xl text-lg leading-8 text-primary-foreground/75">Comece entendendo sua rotina, suas dificuldades e o que precisa mudar para uma estratégia funcionar.</p>
           <div className="mt-9"><CtaButton content="final_understand_case" variant="accent">Quero entender meu caso</CtaButton></div>
         </AnimatedContent>
       </section>
